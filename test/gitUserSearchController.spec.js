@@ -14,32 +14,39 @@ describe('GitUserSearchController', function() {
 
   describe('when searching for a user', function() {
   	var httpBackend;
-		beforeEach(inject(function($httpBackend) {
-	  httpBackend = $httpBackend
-	  httpBackend
-	    .when("GET", "https://api.github.com/search/users?q=hello")
-	    .respond(
-	      { items: items }
-	    );
-	}));
-	  var items = [
-	    {
-	      "login": "tansaku",
-	      "avatar_url": "https://avatars.githubusercontent.com/u/30216?v=3",
-	      "html_url": "https://github.com/tansaku"
-	    },
-	    {
-	      "login": "stephenlloyd",
-	      "avatar_url": "https://avatars.githubusercontent.com/u/196474?v=3",
-	      "html_url": "https://github.com/stephenlloyd"
-	    }
-	  ];
+		
+	  beforeEach(inject(function($httpBackend) {
+	    httpBackend = $httpBackend
+	    httpBackend
+	      .expectGET("https://api.github.com/search/users?q=hello&access_token=2d982c32936c93b7a3f4e5bdcc7c805fb4ed62d5")
+	      .respond(
+	        { items: items }
+	      );
+	  }));
 
-	  it('displays search results', function() {
-      ctrl.searchTerm = 'hello';
-      ctrl.doSearch();
-      httpBackend.flush();
-      expect(ctrl.searchResult.items).toEqual(items);
+	  afterEach(function() {
+	    httpBackend.verifyNoOutstandingExpectation();
+	    httpBackend.verifyNoOutstandingRequest();
+	  });
+
+		  var items = [
+		    {
+		      "login": "tansaku",
+		      "avatar_url": "https://avatars.githubusercontent.com/u/30216?v=3",
+		      "html_url": "https://github.com/tansaku"
+		    },
+		    {
+		      "login": "stephenlloyd",
+		      "avatar_url": "https://avatars.githubusercontent.com/u/196474?v=3",
+		      "html_url": "https://github.com/stephenlloyd"
+		    }
+		  ];
+
+		  it('displays search results', function() {
+	      ctrl.searchTerm = 'hello';
+	      ctrl.doSearch();
+	      httpBackend.flush();
+	      expect(ctrl.searchResult.items).toEqual(items);
+			});
 		});
-	});
 });
