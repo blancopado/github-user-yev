@@ -3,7 +3,5 @@ exports.config = {
   specs: ['githubProfileFeature.js'],
   multiCapabilities: [{
     browserName: 'firefox'
-  }, {
-    browserName: 'chrome'
   }]
 }
