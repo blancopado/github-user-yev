@@ -1,6 +1,6 @@
 describe('Github Profile Finder', function() {
 	
-	var searchBox = element(by.model('searchTerm'));
+	var searchBox = element(by.model('searchCtrl.searchTerm'));
 	var searchButton = element(by.className('btn'));
 
 	beforeEach( function() {
@@ -15,6 +15,6 @@ describe('Github Profile Finder', function() {
     searchBox.sendKeys('spike01');
 		searchButton.click();
     expect(element(by.binding('user.login')).getText()).
-        toEqual('spike0');
+        toEqual('spike01');
   });
 });
