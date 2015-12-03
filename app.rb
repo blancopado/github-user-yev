@@ -1,5 +1,5 @@
 require 'sinatra'
 
 get '/' do
-	erb (:index)
+	erb ('views/index.html')
 end
